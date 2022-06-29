@@ -53,18 +53,19 @@ app.post('/api/users/:id/exercises', (req, res) => {
     if (err || !userData) {
       return res.send("Could not find user");
     } else {
-      let exerciseDate = "";
-      if (date === undefined) {
-        exerciseDate = new Date();
+      let formattedDate;
+        
+      if (date) {
+        formattedDate = date;
       } else {
-        exerciseDate = date;
+        formattedDate = '2022-06-28';
       }
-      console.log(exerciseDate);
+      
       const newExercise = new Exercise({
         userId: id,
         description,
         duration,
-        date: exerciseDate
+        date: formattedDate
       });
 
       newExercise.save((err, data) => {
